@@ -101,20 +101,20 @@ module Brakeman
     end
 
     def controller_paths
-      @controller_paths ||= prioritize_concerns(find_paths("app/**/controllers"))
+      @controller_paths ||= prioritize_concerns(find_paths("apps/**/controllers"))
     end
 
     def model_paths
-      @model_paths ||= prioritize_concerns(find_paths("app/**/models"))
+      @model_paths ||= prioritize_concerns(find_paths("apps/**/models"))
     end
 
     def template_paths
-      @template_paths ||= find_paths("app/**/views", "*.{#{VIEW_EXTENSIONS}}") +
-                          find_paths("app/**/views", "*.{erb,haml,slim}").reject { |path| File.basename(path).count(".") > 1 }
+      @template_paths ||= find_paths("apps/**/views", "*.{#{VIEW_EXTENSIONS}}") +
+                          find_paths("apps/**/views", "*.{erb,haml,slim}").reject { |path| File.basename(path).count(".") > 1 }
     end
 
     def layout_exists?(name)
-      !Dir.glob("#{root_search_pattern}app/views/layouts/#{name}.html.{erb,haml,slim}").empty?
+      !Dir.glob("#{root_search_pattern}apps/views/layouts/#{name}.html.{erb,haml,slim}").empty?
     end
 
     def lib_paths
@@ -139,11 +139,11 @@ module Brakeman
   private
 
     def find_helper_paths
-      find_paths "app/helpers"
+      find_paths "apps/**/helpers"
     end
 
     def find_job_paths
-      find_paths "app/jobs"
+      find_paths "apps/**/jobs"
     end
 
     def find_additional_lib_paths
